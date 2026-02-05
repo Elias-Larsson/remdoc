@@ -29,17 +29,35 @@ const outFile = join(outDir, platform === "win32" ? "remdoc.exe" : "remdoc");
 
 mkdirSync(outDir, { recursive: true });
 
-https
-  .get(url, (res) => {
-    if (res.statusCode !== 200) {
-      console.error(`Download failed: ${res.statusCode}`);
-      process.exit(1);
-    }
-    const file = createWriteStream(outFile, { mode: 0o755 });
-    res.pipe(file);
-    file.on("finish", () => file.close());
-  })
-  .on("error", (err) => {
-    console.error(`Download error: ${err.message}`);
+function download(url, attempt = 0) {
+  if (attempt > 5) {
+    console.error("Too many redirects");
     process.exit(1);
-  });
+  }
+
+  https
+    .get(url, (res) => {
+      if (res.statusCode === 302 || res.statusCode === 301) {
+        download(res.headers.location, attempt + 1);
+        return;
+      }
+
+      if (res.statusCode !== 200) {
+        console.error(`Download failed: ${res.statusCode}`);
+        process.exit(1);
+      }
+
+      const file = createWriteStream(outFile, { mode: 0o755 });
+      res.pipe(file);
+      file.on("finish", () => {
+        file.close();
+        console.log("✓ Binary downloaded successfully");
+      });
+    })
+    .on("error", (err) => {
+      console.error(`Download error: ${err.message}`);
+      process.exit(1);
+    });
+}
+
+download(url);
