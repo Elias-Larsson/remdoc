@@ -1,0 +1,54 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+            asset: remdoc-linux-amd64
+          - goos: linux
+            goarch: arm64
+            asset: remdoc-linux-arm64
+          - goos: darwin
+            goarch: amd64
+            asset: remdoc-darwin-amd64
+          - goos: darwin
+            goarch: arm64
+            asset: remdoc-darwin-arm64
+          - goos: windows
+            goarch: amd64
+            asset: remdoc-windows-amd64.exe
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
+
+      - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          mkdir -p dist
+          go build -o dist/${{ matrix.asset }} ./cmd/remdoc
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/${{ matrix.asset }}
