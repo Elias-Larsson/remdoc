@@ -1,4 +1,4 @@
-const { mkdirSync, createWriteStream } = require("node:fs");
+const { mkdirSync, createWriteStream, chmodSync } = require("node:fs");
 const { join } = require("node:path");
 const https = require("node:https");
 
@@ -47,10 +47,14 @@ function download(url, attempt = 0) {
         process.exit(1);
       }
 
-      const file = createWriteStream(outFile, { mode: 0o755 });
+      const file = createWriteStream(outFile);
       res.pipe(file);
       file.on("finish", () => {
         file.close();
+
+        if (platform !== "win32") {
+          chmodSync(outFile, 0o755);
+        }
         console.log("✓ Binary downloaded successfully");
       });
     })
