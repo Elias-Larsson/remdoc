@@ -341,3 +341,58 @@ func (c *Client) StartContainer(ctx context.Context, containerID string) error {
     
     return c.startContainer(ctx, endpointID, containerID)
 }
+
+func (c *Client) DeployComposeStack(ctx context.Context, name string, composeContent string) (int, error) {
+    if strings.TrimSpace(name) == "" {
+        return 0, fmt.Errorf("stack name cannot be empty")
+    }
+    if strings.TrimSpace(composeContent) == "" {
+        return 0, fmt.Errorf("compose content cannot be empty")
+    }
+
+    endpointID, err := c.getFirstEndpoint(ctx)
+    if err != nil {
+        return 0, fmt.Errorf("failed to get endpoint: %w", err)
+    }
+
+    url := fmt.Sprintf("%s/api/stacks?type=2&method=string&endpointId=%d", c.BaseURL, endpointID)
+
+    payload := map[string]interface{}{
+        "Name":             name,
+        "StackFileContent": composeContent,
+        "Env":              []interface{}{},
+    }
+
+    jsonData, err := json.Marshal(payload)
+    if err != nil {
+        return 0, fmt.Errorf("failed to encode payload: %w", err)
+    }
+
+    req, err := http.NewRequestWithContext(ctx, "POST", url, bytes.NewBuffer(jsonData))
+    if err != nil {
+        return 0, fmt.Errorf("failed to create request: %w", err)
+    }
+
+    req.Header.Set("Authorization", "Bearer "+c.JWT)
+    req.Header.Set("Content-Type", "application/json")
+
+    resp, err := c.HTTPClient.Do(req)
+    if err != nil {
+        return 0, fmt.Errorf("failed to send request: %w", err)
+    }
+    defer resp.Body.Close()
+
+    if err := checkResponse(resp, http.StatusCreated, http.StatusOK); err != nil {
+        return 0, err
+    }
+
+    var result struct {
+        ID int `json:"Id"`
+    }
+
+    if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+        return 0, fmt.Errorf("failed to parse response: %w", err)
+    }
+
+    return result.ID, nil
+}

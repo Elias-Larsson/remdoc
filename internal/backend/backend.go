@@ -22,6 +22,9 @@ type Backend interface {
 	
 	// StartContainer starts a stopped container
 	StartContainer(ctx context.Context, containerID string) error
+
+	// DeployComposeStack deploys a Docker Compose stack from content
+	DeployComposeStack(ctx context.Context, name string, composeContent string) (int, error)
 }
 
 // Container represents a Docker container (simplified for now)
