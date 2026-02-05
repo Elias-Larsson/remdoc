@@ -1,0 +1,16 @@
+{
+  "name": "remdoc",
+  "version": "0.1.0",
+  "description": "CLI tool for deploying and managing Docker containers via Portainer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Elias-Larsson/remdoc.git"
+  },
+  "bin": {
+    "remdoc": "bin/remdoc.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/install.js"
+  }
+}

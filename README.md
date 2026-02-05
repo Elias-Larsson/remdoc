@@ -1,12 +1,103 @@
 # remdoc
 
-remdoc is a CLI tool for remotely creating and starting Docker containers
-on a server via Portainer or a lightweight Docker agent.
+remdoc is a CLI tool for deploying and managing Docker containers on a remote
+server via the Portainer API.
 
 ## Status
-Early development (v0.1)
 
-## Goals
-- CLI-first
-- Secure by default
-- Minimal server interaction
+Still in development and early release. Some features and stuff still in planning.
+
+## Requirements
+
+- Go 1.21+ (for building)
+- Access to a Portainer instance and a Personal Access Token (JWT)
+
+## Install
+
+### Install with npm
+
+```
+npm i -g remdoc
+```
+
+### Install from source
+
+```
+git clone https://github.com/Elias-Larsson/remdoc.git
+cd remdoc
+go build -o remdoc ./cmd/remdoc
+```
+
+## Login (recommended)
+
+Use the CLI to authenticate with your Portainer username and password. This will
+store a JWT in `~/.remdoc/config.json` with secure permissions:
+
+```
+remdoc login --username admin
+```
+
+You can also pass a password directly (not recommended on shared systems):
+
+```
+remdoc login -u admin -p yourpassword
+```
+
+## Configure (manual)
+
+You can also create/edit the config file manually if you already have a JWT:
+
+- Linux/macOS: `$HOME/.config/remdoc/config.json`
+- Windows: `%APPDATA%\remdoc\config.json`
+
+Example `config.json`:
+
+```
+{
+    "portainer_url": "https://your-portainer.example.com",
+    "jwt": "<YOUR_PORTAINER_JWT>"
+}
+```
+
+## Usage
+
+Deploy a container:
+
+```
+remdoc deploy --image nginx:latest --name my-nginx --port 8080:80
+```
+
+List containers:
+
+```
+remdoc status
+```
+
+Start/stop/remove containers:
+
+```
+remdoc start <container>
+remdoc stop <container>
+remdoc rm <container>
+```
+
+Deploy a local compose file as a stack:
+
+```
+remdoc compose --file ./docker-compose.yml --name my-stack
+```
+
+## Commands
+
+- `login` – authenticate and store JWT (recommended)
+- `deploy` – deploy a single container
+- `status` – list containers
+- `start` – start a container
+- `stop` – stop a container
+- `rm` – remove a container
+- `compose` – deploy a Docker Compose file as a stack
+
+## Notes
+
+- Stack names are required by Portainer; if you omit `--name`, the file name is used.
+- Compose deployments currently use the Portainer stack API with the compose file content.
