@@ -2,7 +2,8 @@ const { mkdirSync, createWriteStream } = require("node:fs");
 const { join } = require("node:path");
 const https = require("node:https");
 
-const version = "v0.1.0"; // keep in sync with package.json
+const pkg = require("../package.json");
+const version = `v${pkg.version}`;
 const platform = process.platform;
 const arch = process.arch;
 
