@@ -1,0 +1,52 @@
+# =========================
+# Go build artifacts
+# =========================
+/bin/
+/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# =========================
+# Go tooling
+# =========================
+/vendor/
+coverage.out
+coverage.*
+*.coverprofile
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Project-specific
+# =========================
+.env
+.env.*
+*.local
+*.secret
+
+# Local CLI state (VERY IMPORTANT)
+.remdoc/
+**/.remdoc/
