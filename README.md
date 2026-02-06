@@ -9,8 +9,8 @@ Still in development and early release. Some features and stuff still in plannin
 
 ## Requirements
 
-- Go 1.21+ (for building)
-- Access to a Portainer instance and a Personal Access Token (JWT)
+- Go 1.21+ (for installation)
+- Access to a Portainer instance
 
 ## Install
 
@@ -101,3 +101,7 @@ remdoc compose --file ./docker-compose.yml --name my-stack
 
 - Stack names are required by Portainer; if you omit `--name`, the file name is used.
 - Compose deployments currently use the Portainer stack API with the compose file content.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
