@@ -14,15 +14,17 @@ Still in development and early release. Some features and stuff still in plannin
 
 ## Install
 
-### Install with npm
+### Install with Go
 
+```sh
+go install github.com/Elias-Larsson/remdoc/cmd/remdoc@latest
 ```
-npm i -g remdoc
-```
+
+Make sure `$GOPATH/bin` (usually `~/go/bin`) is in your `PATH`.
 
 ### Install from source
 
-```
+```sh
 git clone https://github.com/Elias-Larsson/remdoc.git
 cd remdoc
 go build -o remdoc ./cmd/remdoc
@@ -33,13 +35,13 @@ go build -o remdoc ./cmd/remdoc
 Use the CLI to authenticate with your Portainer username and password. This will
 store a JWT in `~/.remdoc/config.json` with secure permissions:
 
-```
+```sh
 remdoc login --username admin
 ```
 
 You can also pass a password directly (not recommended on shared systems):
 
-```
+```sh
 remdoc login -u admin -p yourpassword
 ```
 
@@ -52,10 +54,10 @@ You can also create/edit the config file manually if you already have a JWT:
 
 Example `config.json`:
 
-```
+```json
 {
-    "portainer_url": "https://your-portainer.example.com",
-    "jwt": "<YOUR_PORTAINER_JWT>"
+  "portainer_url": "https://your-portainer.example.com",
+  "jwt": "<YOUR_PORTAINER_JWT>"
 }
 ```
 
@@ -63,19 +65,19 @@ Example `config.json`:
 
 Deploy a container:
 
-```
+```sh
 remdoc deploy --image nginx:latest --name my-nginx --port 8080:80
 ```
 
 List containers:
 
-```
+```sh
 remdoc status
 ```
 
 Start/stop/remove containers:
 
-```
+```sh
 remdoc start <container>
 remdoc stop <container>
 remdoc rm <container>
@@ -83,7 +85,7 @@ remdoc rm <container>
 
 Deploy a local compose file as a stack:
 
-```
+```sh
 remdoc compose --file ./docker-compose.yml --name my-stack
 ```
 
