@@ -1,5 +1,0 @@
-cmd/
-internal/
-*.go
-go.mod
-go.sum
