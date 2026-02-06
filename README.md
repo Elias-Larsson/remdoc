@@ -1,5 +1,6 @@
 # remdoc
 ![remdoc](https://github.com/user-attachments/assets/dcffee1e-a381-436c-b5e0-93e4d54674d3)
+
 remdoc is a CLI tool for deploying and managing Docker containers on a remote
 server via the Portainer API.
 
