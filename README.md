@@ -1,5 +1,5 @@
 # remdoc
-![remdoc](https://github.com/user-attachments/assets/dcffee1e-a381-436c-b5e0-93e4d54674d3)
+![remdoc](https://github.com/user-attachments/assets/662760ed-7e62-47f2-95d4-bd7735c17ffb)
 
 remdoc is a professional CLI for deploying and operating Docker containers on
 remote servers via the Portainer API. It is designed for teams who want a
@@ -32,6 +32,7 @@ go install github.com/Elias-Larsson/remdoc/cmd/remdoc@latest
 Make sure `$GOPATH/bin` (usually `~/go/bin`) is in your `PATH`.
 
 ### Install from source
+![Uploading remdoc.svg…]()
 
 ```sh
 git clone https://github.com/Elias-Larsson/remdoc.git
