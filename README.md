@@ -1,17 +1,25 @@
 # remdoc
 ![remdoc](https://github.com/user-attachments/assets/dcffee1e-a381-436c-b5e0-93e4d54674d3)
 
-remdoc is a CLI tool for deploying and managing Docker containers on a remote
-server via the Portainer API.
+remdoc is a professional CLI for deploying and operating Docker containers on
+remote servers via the Portainer API. It is designed for teams who want a
+secure, automation-friendly workflow without a heavy control plane.
 
 ## Status
 
-Still in development and early release. Some features and stuff still in planning.
+Actively developed. Features are stable, with regular improvements focused on
+security, reliability, and operator experience.
 
 ## Requirements
 
 - Go 1.21+ (for installation)
 - Access to a Portainer instance
+
+## Why remdoc
+
+- Security-first defaults and minimal surface area
+- CLI-native workflows that fit into CI and automation
+- Fast, predictable operations with clear output and errors
 
 ## Install
 
@@ -103,7 +111,8 @@ remdoc compose --file ./docker-compose.yml --name my-stack
 ## Notes
 
 - Stack names are required by Portainer; if you omit `--name`, the file name is used.
-- Compose deployments currently use the Portainer stack API with the compose file content.
+- Compose deployments use the Portainer stack API with the compose file content.
+- Config files are stored with user-only permissions for JWT safety.
 
 ## License
 
