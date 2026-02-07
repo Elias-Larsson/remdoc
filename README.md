@@ -1,6 +1,6 @@
-# remdoc
-![remdoc](https://github.com/user-attachments/assets/662760ed-7e62-47f2-95d4-bd7735c17ffb)
+<p align="center"><img src="https://github.com/user-attachments/assets/662760ed-7e62-47f2-95d4-bd7735c17ffb"/></p>
 
+## Description
 remdoc is a professional CLI for deploying and operating Docker containers on
 remote servers via the Portainer API. It is designed for teams who want a
 secure, automation-friendly workflow without a heavy control plane.
@@ -32,7 +32,6 @@ go install github.com/Elias-Larsson/remdoc/cmd/remdoc@latest
 Make sure `$GOPATH/bin` (usually `~/go/bin`) is in your `PATH`.
 
 ### Install from source
-![Uploading remdoc.svg…]()
 
 ```sh
 git clone https://github.com/Elias-Larsson/remdoc.git
@@ -108,6 +107,64 @@ remdoc compose --file ./docker-compose.yml --name my-stack
 - `stop` – stop a container
 - `rm` – remove a container
 - `compose` – deploy a Docker Compose file as a stack
+## 🤝 Contributing
+
+Contributions are welcome! **remdoc** is an open-source project, and we appreciate help from the community.
+
+### How to Contribute
+
+1. **Fork the repository**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/remdoc.git
+   cd remdoc
+   ```
+
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. **Make your changes**
+   - Follow Go best practices and idiomatic code style
+   - Ensure all files in a directory share the same package name
+   - Write clear commit messages
+
+4. **Test your changes**
+   ```bash
+   # Run the CLI locally
+   go run ./cmd/remdoc --help
+   
+   # Test specific commands
+   go run ./cmd/remdoc status
+   go run ./cmd/remdoc deploy --image nginx:latest --name test --port 8080:80
+   ```
+
+5. **Install and test globally** (optional)
+   ```bash
+   go install ./cmd/remdoc
+   remdoc --help
+   ```
+
+6. **Commit and push**
+   ```bash
+   git add .
+   git commit -m "feat: add new feature"
+   git push origin feature/your-feature-name
+   ```
+
+7. **Open a Pull Request**
+   - Go to the [remdoc repository](https://github.com/Elias-Larsson/remdoc)
+   - Click "New Pull Request"
+   - Describe your changes clearly
+
+### Reporting Issues
+
+Found a bug or have a feature request? Please [open an issue](https://github.com/Elias-Larsson/remdoc/issues) with:
+
+- Clear description of the problem or feature
+- Steps to reproduce (for bugs)
+- Expected vs actual behavior
+- Your environment (OS, Go version, Portainer version)
 
 ## Notes
 
